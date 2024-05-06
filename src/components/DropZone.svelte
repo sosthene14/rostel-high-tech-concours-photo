@@ -2,11 +2,7 @@
   import Dropzone from "svelte-file-dropzone";
   import { sendData, type response } from "./ts/SendPictures";
   import { Circle } from "svelte-loading-spinners";
-  import {
-    toasts,
-    ToastContainer,
-    FlatToast,
-  } from "svelte-toasts";
+  import { toasts, ToastContainer, FlatToast } from "svelte-toasts";
   import { onMount } from "svelte";
   let files: { accepted: File[]; rejected: File[] } = {
     accepted: [],
@@ -15,7 +11,6 @@
   let isDragOver = false;
   let haveSubmitted = false;
   let senderName = "";
-  
 
   function handleFilesSelect(
     e: CustomEvent<{ acceptedFiles: File[]; fileRejections: File[] }>
@@ -73,6 +68,9 @@
   <FlatToast {data} />
 </ToastContainer>
 <Dropzone
+  inputElement={{
+    placeHolder: "Veuillez cliquer ici pour envoyer vos photos",
+  }}
   on:drop={handleFilesSelect}
   on:dragenter={() => (isDragOver = true)}
   on:dragleave={() => (isDragOver = false)}
@@ -80,7 +78,9 @@
   maxSize={625000}
   containerClasses="flex justify-center w-[90%] md:w-1/2 mx-auto mt-5 h-40 rounded-xl"
   containerStyles={`${isDragOver ? "background-color: gray;" : "background-color: #F7F7F7;"}  border: 1px dashed #BDBDBD; border-radius: 10px;`}
-/>
+>
+  <p>Glissez deposez ou Veuillez cliquer ici pour envoyer vos photos</p>
+</Dropzone>
 
 <ol class="flex justify-center mt-10 text-white flex-col items-center">
   {#each files.accepted as item}
@@ -109,4 +109,3 @@
     >Effacer</button
   >
 </div>
-
