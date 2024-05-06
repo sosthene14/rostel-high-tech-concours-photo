@@ -79,7 +79,7 @@
   containerClasses="flex justify-center w-[90%] md:w-1/2 mx-auto mt-5 h-40 rounded-xl"
   containerStyles={`${isDragOver ? "background-color: gray;" : "background-color: #F7F7F7;"}  border: 1px dashed #BDBDBD; border-radius: 10px;`}
 >
-  <p>Glissez deposez ou Veuillez cliquer ici pour envoyer vos photos</p>
+  <p class="text-center">Glissez deposez ou Veuillez cliquer ici pour envoyer vos photos</p>
 </Dropzone>
 
 <ol class="flex justify-center mt-10 text-white flex-col items-center">
