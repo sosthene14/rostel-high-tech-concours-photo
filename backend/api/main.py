@@ -68,20 +68,11 @@ def upload_images():
 
 @app.route('/images/<image_id>')
 def get_image(image_id):
-    # Récupérer le document de la collection en fonction de l'ID de l'image
     image_doc = collection.find_one({'_id': ObjectId(image_id)})
     if not image_doc:
         return jsonify({'error': 'Image not found'}), 404
-
-    # Extraire les données de l'image du champ de document approprié
     image_data = image_doc['image']
-
-    # Lire les données de l'image et les convertir en format pouvant être affiché
     image_stream = BytesIO(image_data)
     image_stream.seek(0)
-
-    # Renvoyer l'image en tant que réponse HTTP
     return send_file(image_stream, mimetype='image/png')
 
-if __name__ == "__main__":
-    app.run(debug=True)

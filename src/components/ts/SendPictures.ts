@@ -9,7 +9,7 @@ export const sendData = async (files: File[]) : Promise<response> => {
     files.forEach((file, index) => {
         formData.append(`images[${index}]`, file);
     });
-    fetch("http://127.0.0.1:5000/upload", {
+    fetch("https://rostel-high-tech-concours-photo-backend.vercel.app/upload", {
         method: "POST",
         body: formData,
     })
