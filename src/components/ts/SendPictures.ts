@@ -4,12 +4,13 @@ export interface response {
     image_ids: string[];
     success: boolean;
 }
-export const sendData = async (files: File[]) : Promise<response> => {
+export const sendData = async (files: File[],senderName:string) : Promise<response> => {
     const formData = new FormData();
     files.forEach((file, index) => {
+        formData.append("senderName", senderName);
         formData.append(`images[${index}]`, file);
     });
-    fetch("https://rostel-high-tech-concours-photo-backend.vercel.app/upload", {
+    fetch("http://127.0.0.1:5000/upload", {
         method: "POST",
         body: formData,
     })

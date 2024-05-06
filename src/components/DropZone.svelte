@@ -8,12 +8,14 @@
     FlatToast,
     BootstrapToast,
   } from "svelte-toasts";
+  import { onMount } from "svelte";
   let files: { accepted: File[]; rejected: File[] } = {
     accepted: [],
     rejected: [],
   };
   let isDragOver = false;
   let haveSubmitted = false;
+  let senderName = "";
 
   function handleFilesSelect(
     e: CustomEvent<{ acceptedFiles: File[]; fileRejections: File[] }>
@@ -30,7 +32,7 @@
 
   const send = async (): Promise<response> => {
     haveSubmitted = true;
-    const response = await sendData(files.accepted);
+    const response = await sendData(files.accepted, senderName);
     console.log(response);
     if (response && response.image_ids && response.image_ids.length > 0) {
       showToast("Photos envoyées");
@@ -38,7 +40,7 @@
     }
     setTimeout(() => {
       haveSubmitted = false;
-    }, 3000);
+    }, 4000);
     return response;
   };
 
@@ -48,8 +50,26 @@
       duration: 10000,
     });
   };
+
+  function returnInput() {
+    let input = document.createElement("input");
+    input.type = "text";
+    input.value = senderName;
+    input.className =
+      "bg-[#F7F7F7] rounded-md outline-none flex justify-center mt-10 h-10 pl-3 w-[90%] md:w-1/2 mx-auto";
+    input.placeholder = "prenom (optionnel)";
+    input.oninput = (e: Event) => {
+      const inputElement = e.target as HTMLInputElement;
+      senderName = inputElement.value;
+    };
+
+    let whereToAdd = document.getElementById("input");
+    whereToAdd && whereToAdd.appendChild(input);
+  }
+  onMount(returnInput);
 </script>
 
+<div id="input"></div>
 <ToastContainer let:data placement="top-right">
   <FlatToast {data} />
 </ToastContainer>
@@ -59,7 +79,7 @@
   on:dragleave={() => (isDragOver = false)}
   accept="image/*"
   maxSize={625000}
-  containerClasses="flex justify-center w-1/2 mx-auto mt-20 h-40 rounded-xl"
+  containerClasses="flex justify-center w-[90%] md:w-1/2 mx-auto mt-5 h-40 rounded-xl"
   containerStyles={`${isDragOver ? "background-color: gray;" : "background-color: #F7F7F7;"}  border: 1px dashed #BDBDBD; border-radius: 10px;`}
 />
 
@@ -75,7 +95,7 @@
   {/if}
 </div>
 
-<div class="flex justify-center mt-10 mb-20">
+<div class="flex justify-center mt-5 mb-20">
   <button
     on:click={() =>
       files.accepted.length > 0
