@@ -79,7 +79,50 @@
   containerClasses="flex justify-center w-[90%] md:w-1/2 mx-auto mt-5 h-40 rounded-xl"
   containerStyles={`${isDragOver ? "background-color: gray;" : "background-color: #F7F7F7;"}  border: 1px dashed #BDBDBD; border-radius: 10px;`}
 >
-  <p class="text-center">Glissez deposez ou Veuillez cliquer ici pour envoyer vos photos</p>
+  <p class="text-center flex flex-col items-center">
+    Glissez deposez ou Veuillez cliquer ici pour envoyer vos photos
+  </p>
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="3em"
+    height="3em"
+    viewBox="0 0 24 24"
+    {...$$props}
+  >
+    <g
+      stroke="currentColor"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      stroke-width="2"
+    >
+      <path
+        fill="none"
+        stroke-dasharray="14"
+        stroke-dashoffset="14"
+        d="M6 19h12"
+      >
+        <animate
+          fill="freeze"
+          attributeName="stroke-dashoffset"
+          dur="0.4s"
+          values="14;0"
+        />
+      </path>
+      <path
+        fill="currentColor"
+        d="M12 15 h2 v-6 h2.5 L12 4.5M12 15 h-2 v-6 h-2.5 L12 4.5"
+      >
+        <animate
+          attributeName="d"
+          calcMode="linear"
+          dur="1.5s"
+          keyTimes="0;0.7;1"
+          repeatCount="indefinite"
+          values="M12 15 h2 v-6 h2.5 L12 4.5M12 15 h-2 v-6 h-2.5 L12 4.5;M12 15 h2 v-3 h2.5 L12 7.5M12 15 h-2 v-3 h-2.5 L12 7.5;M12 15 h2 v-6 h2.5 L12 4.5M12 15 h-2 v-6 h-2.5 L12 4.5"
+        />
+      </path>
+    </g>
+  </svg>
 </Dropzone>
 
 <ol class="flex justify-center mt-10 text-white flex-col items-center">
